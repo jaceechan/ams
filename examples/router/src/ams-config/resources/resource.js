@@ -31,6 +31,16 @@ ams.resource('resource', {
         }
     },
     fields: {
+        dynamicProp: {
+            label: '动态prop',
+            type: 'button',
+            props: {
+                'dynamic-type'(ctx) {
+                    return ctx === 2 ? 'warning' : 'danger';
+                },
+                type: 'success',
+            },
+        },
         // a: {
         //     type: 'text',
         //     label: 'a',
@@ -63,7 +73,7 @@ ams.resource('resource', {
             label: 'id',
             hidden: true,
             on: {
-                change: function(...args) {
+                change: function (...args) {
                     console.log('text change', args, this);
                 }
             },
@@ -119,13 +129,13 @@ ams.resource('resource', {
                 content: '提示文字',
                 placement: 'top-start'
             },
-            show: function(data) {
+            show: function (data) {
                 return data.id < 10;
             },
             // 事件触发机制 on 或者 event
             // event: 'submit',
             on: {
-                click: function() {
+                click: function () {
                     console.log('click---', this);
                     this.callAction('submit');
                 }
@@ -712,7 +722,7 @@ ams.resource('resource', {
             tip: '只能上传jpg/png文件，且不超过500kb',
             successUrlKey: 'url',
             props: {
-                'on-preview': function(params) {},
+                'on-preview': function (params) { },
                 'button-label': '导入',
                 // multiple: true,
                 // drag: true,

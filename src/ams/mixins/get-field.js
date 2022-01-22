@@ -7,6 +7,18 @@ export default {
             if (context && field.changeConfig) {
                 return field.changeConfig(deepExtend({}, field), context, this);
             }
+            if (field.props) {
+                Object.keys(field.props).forEach((prop) => {
+                    const propValue = field.props[prop];
+                    if (prop.indexOf('dynamic-') !== 0) return;
+
+                    if (typeof propValue === 'function') {
+                        field.props[prop.replace('dynamic-', '')] = propValue(context);
+                    } else {
+                        delete field.props.prop;
+                    }
+                });
+            }
             return field;
         }
     }
